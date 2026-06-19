@@ -1,0 +1,4 @@
+rm -rf aarch64-esr-decoder
+git clone https://github.com/google/aarch64-esr-decoder
+cargo2nix --locked aarch64-esr-decoder
+cp aarch64-esr-decoder/Cargo.lock .
