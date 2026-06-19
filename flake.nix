@@ -10,8 +10,12 @@
         rust-overlay.follows = "rust-overlay";
       };
     };
+    aarch64-esr-decoder = {
+      url = "github:google/aarch64-esr-decoder";
+      flake = false;
+    };
   };
-  outputs = { self, nixpkgs, flake-utils, rust-overlay, cargo2nix }:
+  outputs = { self, nixpkgs, flake-utils, rust-overlay, cargo2nix, aarch64-esr-decoder }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
@@ -32,6 +36,7 @@
         rustPkgs = pkgs.rustBuilder.makePackageSet {
           inherit rustVersion;
           packageFun = import ./Cargo.nix;
+          workspaceSrc = aarch64-esr-decoder;
         };
       in {
         packages.default = rustPkgs.workspace.aarch64-esr-decoder {};
@@ -39,6 +44,9 @@
         devShell =
           pkgs.mkShell {
             buildInputs = with pkgs; [
+              (writeScriptBin "update" ''
+                cargo2nix --locked ${aarch64-esr-decoder}
+              '')
               # Rust
               (rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
                 extensions = [

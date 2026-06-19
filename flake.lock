@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "aarch64-esr-decoder": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1781648215,
+        "narHash": "sha256-ZaTS6daI8vLthgXX+IlsAStvc6nFg6o6ETa+Oj8uV/M=",
+        "owner": "google",
+        "repo": "aarch64-esr-decoder",
+        "rev": "652eb5b2556d93001f08055b28229b522968d6cb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "google",
+        "repo": "aarch64-esr-decoder",
+        "type": "github"
+      }
+    },
     "cargo2nix": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -93,6 +109,7 @@
     },
     "root": {
       "inputs": {
+        "aarch64-esr-decoder": "aarch64-esr-decoder",
         "cargo2nix": "cargo2nix",
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
